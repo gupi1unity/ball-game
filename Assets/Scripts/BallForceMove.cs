@@ -15,10 +15,17 @@ public class BallForceMove : MonoBehaviour
     private string _verticalAxisName = "Vertical";
     private Vector3 _inputVector;
 
+    private float _deacceleration = 0.2f;
+    private float _deaccelerationX;
+    private float _deaccelerationY;
+
+    private BallJump _ballJump;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _camera = GetComponent<Camera>();
+        _ballJump = GetComponent<BallJump>();
     }
 
     private void Update()
@@ -37,9 +44,18 @@ public class BallForceMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         if (_isMoving == true)
         {
             _rigidbody.AddForce(_inputVector * _moveForce, ForceMode.Force);
+        }
+        if (_isMoving == false && _ballJump.IsGrounded == true)
+        {
+            _rigidbody.velocity = new Vector3(Mathf.SmoothDamp(_rigidbody.velocity.x, 0, ref _deaccelerationX, _deacceleration), 0, Mathf.SmoothDamp(_rigidbody.velocity.z, 0, ref _deaccelerationY, _deacceleration));
         }
     }
 
