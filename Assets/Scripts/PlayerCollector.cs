@@ -10,4 +10,9 @@ public class PlayerCollector : MonoBehaviour
     {
         _money += coinNominal;
     }
+
+    public void CoinMessage()
+    {
+        Debug.Log("Money" + _money);
+    }
 }

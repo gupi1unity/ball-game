@@ -14,6 +14,7 @@ public class Coin : MonoBehaviour
         {
             int coinNominal = Random.Range(_minimalValue, _maximumValue);
             _playerCollector.AddCoin(coinNominal);
+            _playerCollector.CoinMessage();
             gameObject.SetActive(false);
         }
     }
