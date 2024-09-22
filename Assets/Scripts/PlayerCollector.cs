@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class PlayerCollector : MonoBehaviour
 {
+    [SerializeField] private int _moneyToWin;
     private int _money;
+    public bool IsMoneyReached { get; private set; } = false;
+
+    private void Update()
+    {
+        if (_money >= _moneyToWin)
+            IsMoneyReached = true;
+    }
 
     public void AddCoin(int coinNominal)
     {
