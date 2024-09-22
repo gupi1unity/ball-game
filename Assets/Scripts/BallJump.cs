@@ -17,33 +17,32 @@ public class BallJump : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            _isJumping = true;
-        }
-        else
-        {
-            _isJumping = false;
-        }
-
-        Ray ray = new Ray(transform.position, Vector3.down);
-
-        if (Physics.Raycast(ray, 0.5f))
-        {
-            IsGrounded = true;
-        }
-        else
-        {
-            IsGrounded = false;
-        }
+        CheckIsJumping();
+        CheckIsGrounded();
     }
 
     private void FixedUpdate()
     {
         if (IsGrounded == true && _isJumping == true)
-        {
             Jump();
-        }
+    }
+
+    private void CheckIsGrounded()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, 0.5f))
+            IsGrounded = true;
+        else
+            IsGrounded = false;
+    }
+
+    private void CheckIsJumping()
+    {
+        if (Input.GetKey(KeyCode.Space))
+            _isJumping = true;
+        else
+            _isJumping = false;
     }
 
     private void Jump()
